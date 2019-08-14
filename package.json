@@ -1,0 +1,25 @@
+{
+  "name": "@theverything/parcel-plugin-copy",
+  "version": "1.0.0",
+  "description": "copies files to dist dir",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest test.js"
+  },
+  "keywords": [
+    "parcel",
+    "plugin"
+  ],
+  "author": "theverything",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "parcel-bundler": "^1.12.3"
+  },
+  "dependencies": {
+    "fs-extra": "^8.1.0"
+  },
+  "copyFiles": [
+    "./fixtures/test.json"
+  ]
+}
