@@ -23,7 +23,9 @@ module.exports = function copyFiles(bundler) {
     }
 
     const copyFiles = pkg.copyFiles;
-    const bundleDir = path.dirname(bundle.name);
+    const bundleDir = path.dirname(
+      bundle.name || bundler.mainBundle.childBundles.values().next().value.name
+    );
 
     copyFiles.forEach(f => {
       let from;
