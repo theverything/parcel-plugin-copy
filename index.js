@@ -26,12 +26,22 @@ module.exports = function copyFiles(bundler) {
     const bundleDir = path.dirname(bundle.name);
 
     copyFiles.forEach(f => {
+      let from;
+      let to;
+
+      if (typeof f === 'object') {
+        ({ from, to } = f);
+        to = path.join(bundleDir, to);
+      } else {
+        from = f;
+        to = path.join(bundleDir, path.basename(f));
+      }
+
       try {
-        const fileName = path.basename(f);
-        fs.copySync(f, path.join(bundleDir, fileName), { overwrite: true });
+        fs.copySync(from, to, { overwrite: true });
 
         if (bundler.watch) {
-          bundler.watch(f, mainAsset);
+          bundler.watch(from, mainAsset);
         }
       } catch (error) {
         console.error(error);

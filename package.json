@@ -20,6 +20,10 @@
     "fs-extra": "^8.1.0"
   },
   "copyFiles": [
-    "./fixtures/test.json"
+    "./fixtures/test.json",
+    {
+      "from": "./fixtures/nested/nested.json",
+      "to": "./nested/nested.json"
+    }
   ]
 }

@@ -29,8 +29,13 @@ test('should copy files', () => {
   return bundler.bundle().then(() => {
     const files = fs.readdirSync('dist');
 
+    expect(files.includes('nested')).toBeTruthy();
     expect(files.includes('test.json')).toBeTruthy();
     expect(files.includes('entrypoint.html')).toBeTruthy();
+
+    const nestedFiles = fs.readdirSync('dist/nested');
+
+    expect(nestedFiles.includes('nested.json')).toBeTruthy();
   });
 });
 
@@ -49,17 +54,19 @@ test('should watch files', done => {
     .bundle()
     .then(() => wait(1000))
     .then(b => {
-      const files = fs.readdirSync('dist');
-
-      expect(files.includes('test.json')).toBeTruthy();
-      expect(files.includes('entrypoint.html')).toBeTruthy();
       expect(
         JSON.parse(fs.readFileSync('dist/test.json', 'utf8'))
       ).toStrictEqual({
         test: 'foo'
       });
+      expect(
+        JSON.parse(fs.readFileSync('dist/nested/nested.json', 'utf8'))
+      ).toStrictEqual({
+        nested: 'foo'
+      });
 
       fs.writeFileSync('dist/test.json', '{"test":"bar"}');
+      fs.writeFileSync('dist/nested/nested.json', '{"nested":"bar"}');
 
       return wait(1000);
     })
@@ -68,6 +75,11 @@ test('should watch files', done => {
         JSON.parse(fs.readFileSync('dist/test.json', 'utf8'))
       ).toStrictEqual({
         test: 'bar'
+      });
+      expect(
+        JSON.parse(fs.readFileSync('dist/nested/nested.json', 'utf8'))
+      ).toStrictEqual({
+        nested: 'bar'
       });
     })
     .then(done)
