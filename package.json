@@ -17,13 +17,7 @@
     "parcel-bundler": "^1.12.3"
   },
   "dependencies": {
-    "fs-extra": "^8.1.0"
-  },
-  "copyFiles": [
-    "./fixtures/test.json",
-    {
-      "from": "./fixtures/nested/nested.json",
-      "to": "./nested/nested.json"
-    }
-  ]
+    "fs-extra": "^8.1.0",
+    "glob": "^7.1.4"
+  }
 }

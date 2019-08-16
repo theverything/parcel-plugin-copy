@@ -16,13 +16,16 @@ afterAll(() => {
 });
 
 test('should copy files', () => {
-  let bundler = new Bundler('./fixtures/entrypoint.html', {
-    outDir: path.join(__dirname, 'dist'),
-    watch: false,
-    cache: false,
-    hmr: false,
-    logLevel: 0
-  });
+  let bundler = new Bundler(
+    ['./fixtures/statics.staticmanifest', './fixtures/entrypoint.html'],
+    {
+      outDir: path.join(__dirname, 'dist'),
+      watch: false,
+      cache: false,
+      hmr: false,
+      logLevel: 0
+    }
+  );
 
   copyFiles(bundler);
 
@@ -40,7 +43,7 @@ test('should copy files', () => {
 });
 
 test('should watch files', done => {
-  let bundler = new Bundler('./fixtures/entrypoint.html', {
+  let bundler = new Bundler('./fixtures/statics.staticmanifest', {
     outDir: path.join(__dirname, 'dist'),
     watch: true,
     cache: false,
