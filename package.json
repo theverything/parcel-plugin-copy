@@ -1,6 +1,6 @@
 {
   "name": "@theverything/parcel-plugin-copy",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "copies files to dist dir",
   "main": "index.js",
   "scripts": {

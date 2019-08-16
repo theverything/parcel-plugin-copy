@@ -1,3 +1,3 @@
 # Parcel Plugin Copy
 
-Add `copyFiles` to you `package.json` with the files you want copied.
+Create a \*.staticmanifest in the root of you src dir with file globs each on its own line. (see fixtures dir)
