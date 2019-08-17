@@ -13,8 +13,19 @@ class StaticManifestAsset extends Asset {
   async generate() {
     const f = this.contents;
     const baseDir = path.dirname(this.name);
+    const globs = [];
 
-    const globs = f.trim().split('\n');
+    f.trim()
+      .split('\n')
+      .forEach(g => {
+        if (g.startsWith('../')) {
+          console.error('can not add files outside of cwd %s', g);
+          return;
+        }
+
+        globs.push(g);
+      });
+
     const files = await Promise.all(
       globs.map(g => getFiles(g, { cwd: baseDir, nodir: true }))
     )
