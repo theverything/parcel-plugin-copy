@@ -13,16 +13,21 @@ class StaticPackager extends Packager {
     const files = asset.generated.staticmanifest;
     const distDir = path.dirname(this.bundle.name);
 
-    await Promise.all(
-      files.map(f => {
-        return fs.copy(f.absolute, path.join(distDir, f.relative));
-      })
+    const contents = await Promise.all(
+      files.map(f =>
+        fs.readFile(f.absolute).then(c => ({ path: f.relative, contents: c }))
+      )
     );
 
+    this.size = contents.reduce((s, c) => s + c.contents.length, 0);
+
+    await Promise.all(
+      contents.map(c => fs.outputFile(path.join(distDir, c.path), c.contents))
+    );
   }
 
   getSize() {
-    return 0;
+    return this.size || 0;
   }
 
   end() {}
