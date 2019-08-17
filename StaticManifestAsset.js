@@ -34,6 +34,10 @@ class StaticManifestAsset extends Asset {
         fls.map(f => ({ absolute: path.join(baseDir, f), relative: f }))
       );
 
+    files.forEach(fl => {
+      this.addDependency(fl.absolute, { includedInParent: true });
+    });
+
     return [
       {
         type: 'staticmanifest',
